@@ -19,7 +19,7 @@ RSpec.describe Api::V1::IdeasController, type: :controller do
       first_idea = json_response.first
 
       expect(first_idea[:title]).to eq("Title")
-      expect(first_idea[:body]).to eq("Body")
+      expect(first_idea[:truncated_body]).to eq("Body")
       expect(first_idea[:quality]).to eq("swill")
       expect(first_idea[:created_at].to_json).to eq(idea.created_at.to_json)
       expect(first_idea[:updated_at]).to be_nil
