@@ -22,6 +22,22 @@ RSpec.describe Api::V1::IdeasController, type: :controller do
       expect(first_idea[:body]).to eq("Body")
       expect(first_idea[:quality]).to eq("swill")
       expect(first_idea[:created_at].to_json).to eq(idea.created_at.to_json)
+      expect(first_idea[:updated_at]).to be_nil
+      expect(first_idea[:id]).to be_nil
+    end
+
+    it "returns multiple ideas" do
+      idea1 = Idea.create(title: "Idea1", body: "Body1", quality: "swill")
+      idea2 = Idea.create(title: "Idea2", body: "Body2", quality: "genius")
+
+      get :index, format: :json
+
+      first_idea = json_response.first
+      second_idea = json_response.last
+
+      expect(json_response.count).to eq(2)
+      expect(first_idea[:title]).to eq("Idea1")
+      expect(second_idea[:title]).to eq("Idea2")
     end
   end
 end
