@@ -26,7 +26,7 @@ RSpec.describe Api::V1::IdeasController, type: :controller do
       expect(first_idea[:id]).to be_nil
     end
 
-    it "returns multiple ideas" do
+    it "returns multiple ideas in reverse order of creation (newest first)" do
       idea1 = Idea.create(title: "Idea1", body: "Body1", quality: "swill")
       idea2 = Idea.create(title: "Idea2", body: "Body2", quality: "genius")
 

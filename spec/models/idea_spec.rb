@@ -42,4 +42,15 @@ RSpec.describe Idea, type: :model do
       expect(ideas.last).to eq(idea1)
     end
   end
+
+  describe "#body_truncated_to_100_chars" do
+    it "returns the body truncated to 100 characters" do
+      body = "a" * 120
+      idea = Idea.create(title: "Title", body: body)
+
+      truncated_body = idea.body_truncated_to_100_chars
+
+      expect(truncated_body.length).to eq(100)
+    end
+  end
 end
