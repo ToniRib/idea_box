@@ -91,7 +91,7 @@ var deleteHandler = function() {
     type: "DELETE",
     url: "/api/v1/ideas/" + ideaId,
     success: function() {
-      console.log("deleted idea");
+      $('#idea-' + ideaId).remove();
     }
   });
 };

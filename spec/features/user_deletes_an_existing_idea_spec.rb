@@ -11,4 +11,15 @@ RSpec.describe "User deletes an existing idea", type: :feature do
 
     expect(Idea.count).to eq(0)
   end
+
+  scenario "idea is removed from the page", js: true do
+    idea = create(:idea)
+
+    visit root_path
+    click_on "Delete"
+
+    expect(page).not_to have_content(idea.title)
+    expect(page).not_to have_content(idea.body)
+    expect(page).not_to have_content(idea.quality)
+  end
 end
