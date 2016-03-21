@@ -9,5 +9,11 @@ RSpec.describe Idea, type: :model do
       expect(idea.body).to eq("Body")
       expect(idea.quality).to eq("swill")
     end
+
+    it "defaults quality to the string swill" do
+      idea = Idea.create(title: "Title", body: "Body")
+
+      expect(idea.quality).to eq("swill")
+    end
   end
 end
