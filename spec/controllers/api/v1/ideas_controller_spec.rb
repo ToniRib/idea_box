@@ -62,4 +62,16 @@ RSpec.describe Api::V1::IdeasController, type: :controller do
       expect(idea.quality).to eq("swill")
     end
   end
+
+  describe "DELETE #destroy" do
+    it "responds with HTTP 204 success status code if idea is deleted" do
+      idea = create(:idea)
+
+      delete :destroy, id: idea.id, format: :json
+
+      expect(Idea.count).to eq(0)
+      expect(response.status).to eq(204)
+      expect(response).to be_successful
+    end
+  end
 end
