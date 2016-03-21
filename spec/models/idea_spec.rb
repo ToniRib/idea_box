@@ -28,4 +28,18 @@ RSpec.describe Idea, type: :model do
       expect(Idea.count).to eq(0)
     end
   end
+
+  describe ".newest_to_oldest" do
+    it "returns all ideas with the newest first" do
+      idea1 = Idea.create(title: "Idea1", body: "Body1",
+                          created_at: Date.new(2016, 1, 1))
+      idea2 = Idea.create(title: "Idea2", body: "Body2",
+                          created_at: Date.new(2016, 3, 1))
+
+      ideas = Idea.newest_to_oldest
+
+      expect(ideas.first).to eq(idea2)
+      expect(ideas.last).to eq(idea1)
+    end
+  end
 end

@@ -36,8 +36,8 @@ RSpec.describe Api::V1::IdeasController, type: :controller do
       second_idea = json_response.last
 
       expect(json_response.count).to eq(2)
-      expect(first_idea[:title]).to eq("Idea1")
-      expect(second_idea[:title]).to eq("Idea2")
+      expect(first_idea[:title]).to eq("Idea2")
+      expect(second_idea[:title]).to eq("Idea1")
     end
   end
 end
