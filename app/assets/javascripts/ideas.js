@@ -7,6 +7,10 @@ $(document).ready(function() {
 
     saveIdea(title, body);
   });
+
+  $('.delete-btn').on('click', function() {
+    console.log("got here");
+  });
 });
 
 var getIdeas = function() {
@@ -27,10 +31,16 @@ var addIdeasToPage = function(ideas) {
 
 var appendIdea = function(idea) {
   $('.ideas').append(ideaString(idea));
+  addDeleteClickHandler(idea);
 };
 
 var prependIdea = function(idea) {
   $('.ideas').prepend(ideaString(idea));
+  addDeleteClickHandler(idea);
+};
+
+var addDeleteClickHandler = function(idea) {
+  $('#idea-' + idea.id).find('button').click(deleteHandler);
 };
 
 var ideaString = function(idea) {
@@ -40,7 +50,7 @@ var ideaString = function(idea) {
          "<h3 class='inline title'>" + idea.title + "</h3>" +
          "<p class='inline right'><em>" + idea.quality + "</em></p>" +
          "<p class='idea-body'>" + truncatedBody + "</p>" +
-         "<button class='btn btn-danger'>Delete</button>" +
+         "<button class='btn btn-danger delete-idea'>Delete</button>" +
          "</div>";
 };
 
@@ -70,6 +80,18 @@ var saveIdea = function(title, body) {
     success: function(idea) {
       prependIdea(idea);
       clearInputs();
+    }
+  });
+};
+
+var deleteHandler = function() {
+  var ideaId = $(this).parent().attr('id').split('-')[1];
+
+  $.ajax({
+    type: "DELETE",
+    url: "/api/v1/ideas/" + ideaId,
+    success: function() {
+      console.log("deleted idea");
     }
   });
 };
