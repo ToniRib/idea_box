@@ -40,4 +40,26 @@ RSpec.describe Api::V1::IdeasController, type: :controller do
       expect(second_idea[:title]).to eq("Idea1")
     end
   end
+
+  describe "POST #create" do
+    it "returns a successful HTTP status code of 201 if the idea is created" do
+      post :create, format: :json, idea: { title: "New Idea",
+                                           body:  "New Body" }
+
+      expect(response.status).to eq(201)
+      expect(response).to be_successful
+    end
+
+    it "creates the idea based on the given parameters" do
+      post :create, format: :json, idea: { title: "New Idea",
+                                           body:  "New Body" }
+
+      idea = Idea.last
+
+      expect(Idea.count).to eq(1)
+      expect(idea.title).to eq("New Idea")
+      expect(idea.body).to eq("New Body")
+      expect(idea.quality).to eq("swill")
+    end
+  end
 end

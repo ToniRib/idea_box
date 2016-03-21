@@ -6,7 +6,7 @@ class Api::V1::IdeasController < Api::V1::BaseController
   end
 
   def create
-    respond_with Idea.create(idea_params)
+    respond_with :api, :v1, Idea.create(idea_params)
   end
 
   private
