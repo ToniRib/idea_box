@@ -40,6 +40,7 @@ var ideaString = function(idea) {
          "<h3 class='inline title'>" + idea.title + "</h3>" +
          "<p class='inline right'><em>" + idea.quality + "</em></p>" +
          "<p class='idea-body'>" + truncatedBody + "</p>" +
+         "<button class='btn btn-danger'>Delete</button>" +
          "</div>";
 };
 
