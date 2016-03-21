@@ -7,10 +7,6 @@ $(document).ready(function() {
 
     saveIdea(title, body);
   });
-
-  $('.delete-btn').on('click', function() {
-    console.log("got here");
-  });
 });
 
 var getIdeas = function() {
