@@ -19,7 +19,17 @@ var addIdeasToPage = function(ideas) {
 };
 
 var appendIdea = function(idea) {
+  var truncatedBody = truncate(idea.body);
+
   $('.ideas').append('<h4>' + idea.title + '</h4>' +
-                     '<p>' + idea.truncated_body + '</p>' +
+                     '<p>' + truncatedBody + '</p>' +
                      '<p>' + idea.quality + '</p>');
+};
+
+var truncate = function(text) {
+  if (text.length > 100) {
+    return text.substr(0, text.lastIndexOf(' ', 100)) + '...';
+  } else {
+    return text;
+  }
 };
