@@ -1,0 +1,28 @@
+// ----- FONTS -----
+@import url(https://fonts.googleapis.com/css?family=Roboto:400,100);
+
+// ----- MAIN STYLES -----
+body {
+  font-family: 'Roboto', sans-serif;
+}
+
+.container {
+  max-width: 700px;
+}
+
+.idea {
+  border-bottom: 0.5px solid black;
+  margin-top: 15px;
+}
+
+.inline {
+  display: inline;
+}
+
+.right {
+  float: right;
+}
+
+.idea-body {
+  margin-top: 8px;
+}

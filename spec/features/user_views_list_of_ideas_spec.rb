@@ -39,8 +39,12 @@ RSpec.describe "User views list of ideas", type: :feature do
 
     visit root_path
 
-    within ".ideas:first-child" do
+    within ".idea:nth-of-type(1)" do
       expect(page).to have_content(idea2.title)
+    end
+
+    within ".idea:nth-of-type(2)" do
+      expect(page).to have_content(idea1.title)
     end
   end
 end
