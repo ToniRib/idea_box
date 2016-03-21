@@ -30,4 +30,17 @@ RSpec.describe "User views list of ideas", type: :feature do
 
     expect(page).to have_content(truncated_body)
   end
+
+  scenario "ideas are displayed with the newest first", js: true do
+    idea1 = Idea.create(title: "Idea1", body: "Body1",
+                        created_at: Date.new(2016, 1, 1))
+    idea2 = Idea.create(title: "Idea2", body: "Body2",
+                        created_at: Date.new(2016, 3, 1))
+
+    visit root_path
+
+    within ".ideas:first-child" do
+      expect(page).to have_content(idea2.title)
+    end
+  end
 end

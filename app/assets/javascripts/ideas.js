@@ -21,9 +21,9 @@ var addIdeasToPage = function(ideas) {
 var appendIdea = function(idea) {
   var truncatedBody = truncate(idea.body);
 
-  $('.ideas').append('<h4>' + idea.title + '</h4>' +
-                     '<p>' + truncatedBody + '</p>' +
-                     '<p>' + idea.quality + '</p>');
+  $('.ideas').append("<h4 id='idea-" + idea.id + "'>" + idea.title + "</h4>" +
+                     "<p>" + truncatedBody + "</p>" +
+                     "<p>" + idea.quality + "</p>");
 };
 
 var truncate = function(text) {
