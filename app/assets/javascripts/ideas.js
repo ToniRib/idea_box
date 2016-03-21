@@ -51,6 +51,11 @@ var truncate = function(text) {
   }
 };
 
+var clearInputs = function() {
+  $('#title').val('');
+  $('#body').val('');
+};
+
 var saveIdea = function(title, body) {
   $.ajax({
     type: "POST",
@@ -63,6 +68,7 @@ var saveIdea = function(title, body) {
     },
     success: function(idea) {
       prependIdea(idea);
+      clearInputs();
     }
   });
 };
