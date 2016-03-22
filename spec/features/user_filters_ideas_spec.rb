@@ -40,8 +40,20 @@ RSpec.describe "User filters ideas", type: :feature do
     expect(page).to have_content("idea3")
   end
 
-  xscenario "based on a truncated body", js: true do
+  scenario "based on a truncated body", js: true do
+    body = "There is nothing I like more than sitting down with a good book, " \
+           "especially if I have an IPA to drink at the same time."
+    truncated_body = "There is nothing I like more than sitting down with a " \
+                     " good book, especially if I have an IPA to..."
 
+    create(:idea, body: body)
+    create(:idea, body: "bananas")
+
+    visit root_path
+    fill_in "search", with: "time"
+
+    expect(page).to have_content(truncated_body)
+    expect(page).to_not have_content("bananas")
   end
 
   scenario "results are filtered based on keyup", js: true do
