@@ -74,4 +74,25 @@ RSpec.describe Api::V1::IdeasController, type: :controller do
       expect(response).to be_successful
     end
   end
+
+  describe "PUT #update" do
+    it "responds with HTTP 204 success status code if idea is updated" do
+      idea = create(:idea)
+
+      put :update, id: idea.id, quality: 'genius', format: :json
+
+      expect(response.status).to eq(204)
+      expect(response).to be_successful
+    end
+
+    it "updates the quality of the idea" do
+      idea = create(:idea)
+
+      put :update, id: idea.id, quality: 'genius', format: :json
+
+      updated_idea = Idea.last
+
+      expect(updated_idea.quality).to eq('genius')
+    end
+  end
 end
