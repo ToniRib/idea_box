@@ -103,26 +103,23 @@ var inputsOutOfFocus = function() {
   return !$(".new-title").is(":focus") && !$(".new-body").is(":focus");
 };
 
-var thumbsUpHandler = function() {
-  var ideaId = $(this).parents('.idea').attr('id').split('-')[1];
-  var $quality = $(this).siblings('.quality');
+var updateQualityBasedOnThumbDirection = function(direction, button) {
+  var ideaId = $(button).parents('.idea').attr('id').split('-')[1];
+  var $quality = $(button).siblings('.quality');
   var currentQuality = $quality.text();
-  var newQuality = determineQuality(currentQuality, 'promote');
+  var newQuality = determineQuality(currentQuality, direction);
 
   if (qualityHasChanged(newQuality, currentQuality)) {
     updateQuality($quality, ideaId, newQuality);
   }
 };
 
-var thumbsDownHandler = function() {
-  var ideaId = $(this).parents('.idea').attr('id').split('-')[1];
-  var $quality = $(this).siblings('.quality');
-  var currentQuality = $quality.text();
-  var newQuality = determineQuality(currentQuality, 'demote');
+var thumbsUpHandler = function() {
+  updateQualityBasedOnThumbDirection('promote', this);
+};
 
-  if (qualityHasChanged(newQuality, currentQuality)) {
-    updateQuality($quality, ideaId, newQuality);
-  }
+var thumbsDownHandler = function() {
+  updateQualityBasedOnThumbDirection('demote', this);
 };
 
 var updateQuality = function($quality, id, newQuality) {
