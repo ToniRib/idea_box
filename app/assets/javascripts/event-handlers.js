@@ -45,13 +45,11 @@ var deleteHandler = function() {
 
 var editHandler = function() {
   var $idea = $(this).parent();
-  var ideaId = $idea.attr('id').split('-')[1];
   var $title = $idea.find('.title');
-  var $body = $idea.find('.idea-body');
   var $fullBody = $idea.find('.hidden');
 
   $title.hide();
-  $body.hide();
+  $idea.find('.idea-body').hide();
   $idea.find('.edit-idea').hide();
   $idea.prepend("<textarea type='text' id='new-body' class='new-body'></textarea>");
   $idea.find('textarea').val($fullBody.text());
