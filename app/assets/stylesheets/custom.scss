@@ -94,3 +94,14 @@ i {
   text-transform: lowercase;
   width: 115px;
 }
+
+.btn-sort {
+  background: orange;
+  border: none;
+  margin-left: 260px;
+  width: 140px;
+
+  &:hover {
+    background: darken(orange, 8%);
+  }
+}
