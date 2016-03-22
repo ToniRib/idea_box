@@ -7,15 +7,6 @@ $(document).ready(function() {
 
     saveIdea(title, body);
   });
-
-  $('#search').on('keyup', function() {
-    filterIdeas($(this).val());
-  });
-
-  $('#clear-search').on('click', function() {
-    $('#search').val('');
-    showAllIdeas();
-  });
 });
 
 var getIdeas = function() {
