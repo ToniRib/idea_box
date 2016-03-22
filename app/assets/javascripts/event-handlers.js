@@ -5,20 +5,24 @@ var addHandlers = function(idea) {
   addEditHandler(idea);
 };
 
+var addHandler = function(idea, selector, callback) {
+  findIdeaById(idea.id).find(selector).click(callback);
+};
+
 var addDeleteClickHandler = function(idea) {
-  findIdeaById(idea.id).find('.delete-idea').click(deleteHandler);
+  addHandler(idea, '.delete-idea', deleteHandler);
 };
 
 var addThumbsUpHandler = function(idea) {
-  findIdeaById(idea.id).find('.fa-thumbs-o-up').click(thumbsUpHandler);
+  addHandler(idea, '.fa-thumbs-o-up', thumbsUpHandler);
 };
 
 var addThumbsDownHandler = function(idea) {
-  findIdeaById(idea.id).find('.fa-thumbs-o-down').click(thumbsDownHandler);
+  addHandler(idea, '.fa-thumbs-o-down', thumbsDownHandler);
 };
 
 var addEditHandler = function(idea) {
-  findIdeaById(idea.id).find('.edit-idea').click(editHandler);
+  addHandler(idea, '.edit-idea', editHandler);
 };
 
 var findIdeaById = function(id) {
@@ -103,7 +107,7 @@ var thumbsUpHandler = function() {
   var ideaId = $(this).parents('.idea').attr('id').split('-')[1];
   var $quality = $(this).siblings('.quality');
   var currentQuality = $quality.text();
-  var newQuality = determineQuality(currentQuality, 1);
+  var newQuality = determineQuality(currentQuality, 'promote');
 
   if (qualityHasChanged(newQuality, currentQuality)) {
     updateQuality($quality, ideaId, newQuality);
@@ -114,7 +118,7 @@ var thumbsDownHandler = function() {
   var ideaId = $(this).parents('.idea').attr('id').split('-')[1];
   var $quality = $(this).siblings('.quality');
   var currentQuality = $quality.text();
-  var newQuality = determineQuality(currentQuality, -1);
+  var newQuality = determineQuality(currentQuality, 'demote');
 
   if (qualityHasChanged(newQuality, currentQuality)) {
     updateQuality($quality, ideaId, newQuality);
@@ -139,25 +143,18 @@ var qualityHasChanged = function(newQuality, oldQuality) {
 };
 
 var determineQuality = function(quality, direction) {
-  var level = getLevelOfQuality(quality) + direction;
-
-  if (level < 1) {
-    return 'swill';
-  } else if (level > 3) {
-    return 'genius';
-  } else {
-    return qualityLevels[level];
-  }
+  return qualities[direction][quality];
 };
 
-var qualityLevels = {
-  1: 'swill',
-  2: 'plausible',
-  3: 'genius'
-};
-
-var getLevelOfQuality = function(quality) {
-  for (var level in qualityLevels) {
-    if (qualityLevels[level] === quality) { return parseInt(level); }
+var qualities = {
+  promote: {
+    'swill': 'plausible',
+    'plausible': 'genius',
+    'genius': 'genius'
+  },
+  demote: {
+    'swill': 'swill',
+    'plausible': 'swill',
+    'genius': 'plausible'
   }
 };

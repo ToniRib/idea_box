@@ -5,7 +5,7 @@ $(document).ready(function() {
 
   $('#clear-search').on('click', function() {
     $('#search').val('');
-    showAllIdeas();
+    $('#search').trigger('keyup');
   });
 });
 
@@ -17,11 +17,8 @@ var filterIdeas = function(searchString) {
     title = $currentIdea.children('.title').text();
     body = $currentIdea.children('.hidden').text();
 
-    if (titleOrBodyContainsSearchString(title, body, searchString)) {
-      $currentIdea.show();
-    } else {
-      $currentIdea.hide();
-    }
+    var matches = titleOrBodyContainsSearchString(title, body, searchString);
+    $currentIdea.toggle(matches);
   });
 };
 
@@ -31,8 +28,4 @@ var titleOrBodyContainsSearchString = function(title, body, searchString) {
 
 var contains = function(string, substring) {
   return string.toLowerCase().indexOf(substring.toLowerCase()) !== -1;
-};
-
-var showAllIdeas = function() {
-  $.each($('.idea'), function(index, idea) { $(idea).show(); });
 };
