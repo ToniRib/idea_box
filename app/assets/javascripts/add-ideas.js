@@ -50,14 +50,12 @@ var prependIdea = function(idea) {
 };
 
 var ideaString = function(idea) {
-  var truncatedBody = truncate(idea.body);
-
   return "<div class='idea' id='idea-"+ idea.id + "'>" +
          "<h3 class='inline title'>" + idea.title + "</h3>" +
          "<p class='inline right'><em class='quality'>" + idea.quality + "</em>" +
          "<i class='fa fa-thumbs-o-up'></i>" +
          "<i class='fa fa-thumbs-o-down'></i></p>" +
-         "<p class='idea-body'>" + truncatedBody + "</p>" +
+         "<p class='idea-body'>" + truncate(idea.body) + "</p>" +
          "<p class='hidden'>" + idea.body + "</p>" +
          "<button class='btn btn-danger delete-idea'>Delete</button>" +
          "<button class='btn btn-primary edit-idea'>Edit</button>" +
