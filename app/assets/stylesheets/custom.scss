@@ -33,6 +33,11 @@ textarea {
   margin-bottom: 5px;
 }
 
+.search-box {
+  width: 300px;
+  margin-left: 20px;
+}
+
 i {
   margin: 0 5px;
 }
@@ -46,7 +51,8 @@ i {
   cursor: hand;
 }
 
-.new-idea-row {
+.new-idea-row,
+.search-row {
   border-bottom: 2px solid black;
   margin-bottom: 10px;
 }

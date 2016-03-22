@@ -1,5 +1,5 @@
 <div class="container">
-  <div class="row">
+  <div class="row title-row">
     <div class="col-sm-12">
       <h1 class="text-center">IdeaBox 2.0</h1>
     </div>
@@ -9,6 +9,13 @@
       <%= text_field_tag :title, nil, placeholder: "Title" %><br>
       <%= text_area_tag :body, nil, placeholder: "Body" %><br>
       <button id="save-idea" class="btn btn-success save-btn">Save</button>
+    </div>
+  </div>
+  <div class="row search-row">
+    <div class="col-sm-12">
+      <label>Search</label>
+      <%= text_field_tag :search, nil, class: "search-box" %>
+      <button id="clear-search" class="btn btn-primary">Clear</button>
     </div>
   </div>
   <section class="ideas">
