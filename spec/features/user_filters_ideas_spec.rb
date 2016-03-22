@@ -1,0 +1,67 @@
+require "rails_helper"
+
+RSpec.describe "User filters ideas", type: :feature do
+  scenario "based on title", js: true do
+    create(:idea, title: "bunnies")
+    create(:idea, title: "kittens")
+
+    visit root_path
+
+    fill_in "Search", with: "kit"
+
+    expect(page).to have_content("kittens")
+    expect(page).to_not have_content("bunnies")
+  end
+
+  scenario "based on body", js: true do
+    create(:idea, body: "bunnies")
+    create(:idea, body: "kittens")
+
+    visit root_path
+
+    fill_in "Search", with: "kit"
+
+    expect(page).to have_content("kittens")
+    expect(page).to_not have_content("bunnies")
+  end
+
+  scenario "based on title or body", js: true do
+    create(:idea, title: "idea1", body: "bunnies")
+    create(:idea, title: "idea2", body: "kittens")
+    create(:idea, title: "kittens", body: "idea3")
+
+    visit root_path
+
+    fill_in "Search", with: "kitten"
+
+    expect(page).to have_content("kittens")
+    expect(page).to_not have_content("bunnies")
+    expect(page).to have_content("idea2")
+    expect(page).to have_content("idea3")
+  end
+
+  xscenario "based on a truncated body", js: true do
+
+  end
+
+  scenario "results are filtered based on keyup", js: true do
+    create(:idea, body: "bunnies")
+    create(:idea, body: "bunny")
+
+    visit root_path
+
+    fill_in "Search", with: "bunn"
+
+    expect(page).to have_content("bunnies")
+    expect(page).to have_content("bunny")
+
+    fill_in "Search", with: "bunny"
+
+    expect(page).to_not have_content("bunnies")
+    expect(page).to have_content("bunny")
+  end
+
+  xscenario "results are reset with clear button", js: true do
+
+  end
+end
