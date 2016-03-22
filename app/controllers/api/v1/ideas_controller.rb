@@ -14,12 +14,12 @@ class Api::V1::IdeasController < Api::V1::BaseController
   end
 
   def update
-    respond_with Idea.find(params[:id]).update_attribute(:quality, params[:quality])
+    respond_with Idea.find(params[:id]).update(idea_params)
   end
 
   private
 
   def idea_params
-    params.require(:idea).permit(:title, :body)
+    params.require(:idea).permit(:title, :body, :quality)
   end
 end

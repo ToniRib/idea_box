@@ -79,7 +79,7 @@ RSpec.describe Api::V1::IdeasController, type: :controller do
     it "responds with HTTP 204 success status code if idea is updated" do
       idea = create(:idea)
 
-      put :update, id: idea.id, quality: 'genius', format: :json
+      put :update, id: idea.id, idea: { quality: 'genius' }, format: :json
 
       expect(response.status).to eq(204)
       expect(response).to be_successful
@@ -88,7 +88,7 @@ RSpec.describe Api::V1::IdeasController, type: :controller do
     it "updates the quality of the idea" do
       idea = create(:idea)
 
-      put :update, id: idea.id, quality: 'genius', format: :json
+      put :update, id: idea.id, idea: { quality: 'genius' }, format: :json
 
       updated_idea = Idea.last
 

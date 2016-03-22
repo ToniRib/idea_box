@@ -119,7 +119,9 @@ var thumbsUpHandler = function() {
       type: "PUT",
       url: "/api/v1/ideas/" + ideaId,
       data: {
-        quality: newQuality
+        idea: {
+          quality: newQuality
+        }
       },
       success: function() {
         $quality.text(newQuality);
@@ -139,7 +141,9 @@ var thumbsDownHandler = function() {
       type: "PUT",
       url: "/api/v1/ideas/" + ideaId,
       data: {
-        quality: newQuality
+        idea: {
+          quality: newQuality
+        }
       },
       success: function() {
         $quality.text(newQuality);
