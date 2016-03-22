@@ -65,11 +65,11 @@ var ideaString = function(idea) {
 };
 
 var truncate = function(text) {
-  if (text.length > 100) {
-    return text.substr(0, text.lastIndexOf(' ', 100)) + '...';
-  } else {
-    return text;
-  }
+  return text.length > 100 ? stringUntilSpaceBefore100(text) + '...' : text;
+};
+
+var stringUntilSpaceBefore100 = function(text) {
+  return text.substr(0, text.lastIndexOf(' ', 100));
 };
 
 var clearInputs = function() {
