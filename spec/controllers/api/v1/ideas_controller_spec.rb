@@ -95,4 +95,30 @@ RSpec.describe Api::V1::IdeasController, type: :controller do
       expect(updated_idea.quality).to eq('genius')
     end
   end
+
+  describe "GET #show" do
+    let(:json_response) { JSON.parse(response.body, symbolize_names: true) }
+
+    it "responds with a successful HTTP 200 status code" do
+      idea = create(:idea)
+
+      get :show, id: idea.id, format: :json
+
+      expect(response.status).to eq(200)
+      expect(response).to be_successful
+    end
+
+    it "responds with the title, body, quality, and created_at of the idea" do
+      idea = create(:idea)
+
+      get :show, id: idea.id, format: :json
+
+      expect(json_response[:id]).to eq(idea.id)
+      expect(json_response[:title]).to eq("Title")
+      expect(json_response[:body]).to eq("Body")
+      expect(json_response[:quality]).to eq("swill")
+      expect(json_response[:created_at].to_json).to eq(idea.created_at.to_json)
+      expect(json_response[:updated_at]).to be_nil
+    end
+  end
 end
