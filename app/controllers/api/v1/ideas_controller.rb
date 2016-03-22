@@ -13,6 +13,10 @@ class Api::V1::IdeasController < Api::V1::BaseController
     respond_with Idea.find(params[:id]).destroy
   end
 
+  def update
+    respond_with Idea.find(params[:id]).update_attribute(:quality, params[:quality])
+  end
+
   private
 
   def idea_params

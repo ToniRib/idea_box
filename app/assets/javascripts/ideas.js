@@ -27,16 +27,26 @@ var addIdeasToPage = function(ideas) {
 
 var appendIdea = function(idea) {
   $('.ideas').append(ideaString(idea));
-  addDeleteClickHandler(idea);
+  addHandlers(idea);
 };
 
 var prependIdea = function(idea) {
   $('.ideas').prepend(ideaString(idea));
+  addHandlers(idea);
+};
+
+var addHandlers = function(idea) {
   addDeleteClickHandler(idea);
+  addThumbsUpHandler(idea);
+  // addThumbsDownHandler(idea);
 };
 
 var addDeleteClickHandler = function(idea) {
-  $('#idea-' + idea.id).find('button').click(deleteHandler);
+  $('#idea-' + idea.id).find('.delete-idea').click(deleteHandler);
+};
+
+var addThumbsUpHandler = function(idea) {
+  $('#idea-' + idea.id).find('.fa-thumbs-o-up').click(thumbsUpHandler);
 };
 
 var ideaString = function(idea) {
@@ -92,4 +102,40 @@ var deleteHandler = function() {
       $('#idea-' + ideaId).remove();
     }
   });
+};
+
+var thumbsUpHandler = function() {
+  var ideaId = $(this).parents('.idea').attr('id').split('-')[1];
+  var $quality = $(this).siblings('.quality');
+  var currentQuality = $quality.text();
+  var newQuality = determineQuality(currentQuality, 1);
+
+  if (newQuality !== currentQuality) {
+    $.ajax({
+      type: "PUT",
+      url: "/api/v1/ideas/" + ideaId,
+      data: {
+        quality: newQuality
+      },
+      success: function() {
+        $quality.text(newQuality);
+      }
+    });
+  }
+};
+
+var determineQuality = function(level, direction) {
+  if (direction === 1) {
+    if (level === 'swill') {
+      return 'plausible';
+    } else {
+      return 'genius';
+    }
+  } else {
+    if (level === 'genius') {
+      return 'plausible';
+    } else {
+      return 'swill';
+    }
+  }
 };
