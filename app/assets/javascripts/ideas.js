@@ -38,7 +38,7 @@ var prependIdea = function(idea) {
 var addHandlers = function(idea) {
   addDeleteClickHandler(idea);
   addThumbsUpHandler(idea);
-  // addThumbsDownHandler(idea);
+  addThumbsDownHandler(idea);
 };
 
 var addDeleteClickHandler = function(idea) {
@@ -47,6 +47,10 @@ var addDeleteClickHandler = function(idea) {
 
 var addThumbsUpHandler = function(idea) {
   $('#idea-' + idea.id).find('.fa-thumbs-o-up').click(thumbsUpHandler);
+};
+
+var addThumbsDownHandler = function(idea) {
+  $('#idea-' + idea.id).find('.fa-thumbs-o-down').click(thumbsDownHandler);
 };
 
 var ideaString = function(idea) {
@@ -109,6 +113,26 @@ var thumbsUpHandler = function() {
   var $quality = $(this).siblings('.quality');
   var currentQuality = $quality.text();
   var newQuality = determineQuality(currentQuality, 1);
+
+  if (newQuality !== currentQuality) {
+    $.ajax({
+      type: "PUT",
+      url: "/api/v1/ideas/" + ideaId,
+      data: {
+        quality: newQuality
+      },
+      success: function() {
+        $quality.text(newQuality);
+      }
+    });
+  }
+};
+
+var thumbsDownHandler = function() {
+  var ideaId = $(this).parents('.idea').attr('id').split('-')[1];
+  var $quality = $(this).siblings('.quality');
+  var currentQuality = $quality.text();
+  var newQuality = determineQuality(currentQuality, -1);
 
   if (newQuality !== currentQuality) {
     $.ajax({
