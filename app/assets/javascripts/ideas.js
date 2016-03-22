@@ -18,32 +18,12 @@ $(document).ready(function() {
   });
 });
 
-var filterIdeas = function(searchString) {
-  $ideas = $('.idea');
-
-  for (var i = 1; i < $ideas.length + 1; i++) {
-    $currentIdea = $('.idea:nth-child(' + i + ')');
-    title = $currentIdea.find('.title').text();
-    body = $currentIdea.find('.hidden').text();
-
-    if (contains(title, searchString) || contains(body, searchString)) {
-      $currentIdea.show();
-    } else {
-      $currentIdea.hide();
-    }
-  }
-};
-
 var showAllIdeas = function() {
   $ideas = $('.idea');
 
   for (var i = 1; i < $ideas.length + 1; i++) {
     $('.idea:nth-child(' + i + ')').show();
   }
-};
-
-var contains = function(string, substring) {
-  return string.toLowerCase().indexOf(substring.toLowerCase()) !== -1;
 };
 
 var getIdeas = function() {
