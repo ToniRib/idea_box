@@ -173,7 +173,6 @@ var addUpdateHandler = function(idea) {
   idea.find('.update-idea').click(updateHandler);
   idea.find('.new-title').focusout(updateHandler);
   idea.find('.new-body').focusout(updateHandler);
-  idea.find('.new-body').keypress(updateHandler);
 };
 
 var updateHandler = function() {
