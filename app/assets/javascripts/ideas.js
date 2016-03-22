@@ -44,7 +44,9 @@ var ideaString = function(idea) {
 
   return "<div class='idea' id='idea-"+ idea.id + "'>" +
          "<h3 class='inline title'>" + idea.title + "</h3>" +
-         "<p class='inline right'><em>" + idea.quality + "</em></p>" +
+         "<p class='inline right'><em class='quality'>" + idea.quality + "</em>" +
+         "<i class='fa fa-thumbs-o-up'></i>" +
+         "<i class='fa fa-thumbs-o-down'></i></p>" +
          "<p class='idea-body'>" + truncatedBody + "</p>" +
          "<button class='btn btn-danger delete-idea'>Delete</button>" +
          "</div>";
