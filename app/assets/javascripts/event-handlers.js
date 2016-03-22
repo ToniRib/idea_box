@@ -49,6 +49,7 @@ var editHandler = function() {
   var fullBodyText = $idea.find('.hidden').text();
 
   hideFieldsAndShowInputs($idea, $title, fullBodyText);
+  addUpdateHandler($idea);
 };
 
 var hideFieldsAndShowInputs = function($idea, $title, fullBodyText) {
@@ -61,7 +62,6 @@ var hideFieldsAndShowInputs = function($idea, $title, fullBodyText) {
                 $title.text() +
                 "'></input>").focus();
   $idea.append("<button class='btn btn-success update-idea'>Save Changes</button>");
-  addUpdateHandler($idea);
 };
 
 var updateHandler = function() {
@@ -80,19 +80,19 @@ var updateHandler = function() {
       }
     },
     success: function() {
-      if (inputsOutOfFocus()) {
-        var $title = $idea.find('.title');
-        var $body = $idea.find('.idea-body');
-        $title.text(newTitle).show();
-        $body.text(truncate(newBody)).show();
-        $idea.find('.edit-idea').show();
-        $idea.find('.hidden').text(newBody);
-        $idea.find('.new-body').remove();
-        $idea.find('.new-title').remove();
-        $idea.find('.update-idea').remove();
-      }
+      if (inputsOutOfFocus()) { removeInputsAndShowFields($idea, newTitle, newBody); }
     }
   });
+};
+
+var removeInputsAndShowFields = function($idea, titleText, bodyText) {
+  $idea.find('.title').text(titleText).show();
+  $idea.find('.idea-body').text(truncate(bodyText)).show();
+  $idea.find('.edit-idea').show();
+  $idea.find('.hidden').text(bodyText);
+  $idea.find('.new-body').remove();
+  $idea.find('.new-title').remove();
+  $idea.find('.update-idea').remove();
 };
 
 var inputsOutOfFocus = function() {
