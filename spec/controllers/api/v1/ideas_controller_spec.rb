@@ -94,6 +94,18 @@ RSpec.describe Api::V1::IdeasController, type: :controller do
 
       expect(updated_idea.quality).to eq('genius')
     end
+
+    it "updates the title and body of an idea" do
+      idea = create(:idea)
+
+      put :update, id: idea.id, format: :json, idea: { title: 'new title',
+                                                       body:  'new body'}
+
+      updated_idea = Idea.last
+
+      expect(updated_idea.title).to eq('new title')
+      expect(updated_idea.body).to eq('new body')
+    end
   end
 
   describe "GET #show" do
