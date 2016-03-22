@@ -18,14 +18,6 @@ $(document).ready(function() {
   });
 });
 
-var showAllIdeas = function() {
-  $ideas = $('.idea');
-
-  for (var i = 1; i < $ideas.length + 1; i++) {
-    $('.idea:nth-child(' + i + ')').show();
-  }
-};
-
 var getIdeas = function() {
   $.ajax({
     type: "GET",
