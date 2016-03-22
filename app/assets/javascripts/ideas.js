@@ -127,9 +127,9 @@ var editHandler = function() {
       $title.hide();
       $body.hide();
       $idea.find('.edit-idea').hide();
-      $idea.prepend("<textarea type='text' class='new-body'></textarea>");
+      $idea.prepend("<textarea type='text' id='new-body' class='new-body'></textarea>");
       $idea.find('textarea').val(idea.body);
-      $idea.prepend("<input class='new-title' type='text' value='" + $title.text() + "'></input>").focus();
+      $idea.prepend("<input class='new-title' id='new-title' type='text' value='" + $title.text() + "'></input>").focus();
       $idea.append("<button class='btn btn-success update-idea'>Save Changes</button>");
       addUpdateHandler($idea);
     }
