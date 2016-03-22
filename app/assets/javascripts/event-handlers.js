@@ -138,18 +138,26 @@ var qualityHasChanged = function(newQuality, oldQuality) {
   return newQuality !== oldQuality;
 };
 
-var determineQuality = function(level, direction) {
-  if (direction === 1) {
-    if (level === 'swill') {
-      return 'plausible';
-    } else {
-      return 'genius';
-    }
+var determineQuality = function(quality, direction) {
+  var level = getLevelOfQuality(quality) + direction;
+
+  if (level < 1) {
+    return 'swill';
+  } else if (level > 3) {
+    return 'genius';
   } else {
-    if (level === 'genius') {
-      return 'plausible';
-    } else {
-      return 'swill';
-    }
+    return qualityLevels[level];
+  }
+};
+
+var qualityLevels = {
+  1: 'swill',
+  2: 'plausible',
+  3: 'genius'
+};
+
+var getLevelOfQuality = function(quality) {
+  for (var level in qualityLevels) {
+    if (qualityLevels[level] === quality) { return parseInt(level); }
   }
 };
