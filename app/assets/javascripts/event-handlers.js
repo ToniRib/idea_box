@@ -46,14 +46,20 @@ var deleteHandler = function() {
 var editHandler = function() {
   var $idea = $(this).parent();
   var $title = $idea.find('.title');
-  var $fullBody = $idea.find('.hidden');
+  var fullBodyText = $idea.find('.hidden').text();
 
+  hideFieldsAndShowInputs($idea, $title, fullBodyText);
+};
+
+var hideFieldsAndShowInputs = function($idea, $title, fullBodyText) {
   $title.hide();
   $idea.find('.idea-body').hide();
   $idea.find('.edit-idea').hide();
   $idea.prepend("<textarea type='text' id='new-body' class='new-body'></textarea>");
-  $idea.find('textarea').val($fullBody.text());
-  $idea.prepend("<input class='new-title' id='new-title' type='text' value='" + $title.text() + "'></input>").focus();
+  $idea.find('textarea').val(fullBodyText);
+  $idea.prepend("<input class='new-title' id='new-title' type='text' value='" +
+                $title.text() +
+                "'></input>").focus();
   $idea.append("<button class='btn btn-success update-idea'>Save Changes</button>");
   addUpdateHandler($idea);
 };
