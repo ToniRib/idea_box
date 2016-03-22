@@ -124,14 +124,47 @@ var editHandler = function() {
     type: 'GET',
     url: '/api/v1/ideas/' + ideaId,
     success: function(idea) {
-      var body = idea.body;
       $title.hide();
       $body.hide();
       $idea.find('.edit-idea').hide();
-      $idea.prepend("<textarea type='text'></textarea>");
-      $idea.find('textarea').val(body);
-      $idea.prepend("<input type='text' value='" + $title.text() + "'></input>").focus();
-      $idea.append("<button class='btn btn-success update-btn'>Save Changes</button>");
+      $idea.prepend("<textarea type='text' class='new-body'></textarea>");
+      $idea.find('textarea').val(idea.body);
+      $idea.prepend("<input class='new-title' type='text' value='" + $title.text() + "'></input>").focus();
+      $idea.append("<button class='btn btn-success update-idea'>Save Changes</button>");
+      addUpdateHandler($idea);
+    }
+  });
+};
+
+var addUpdateHandler = function(idea) {
+  idea.find('.update-idea').click(updateHandler);
+};
+
+var updateHandler = function() {
+  var $idea = $(this).parents('.idea');
+  var ideaId = $idea.attr('id').split('-')[1];
+  var newTitle = $idea.find('.new-title').val();
+  var newBody = $idea.find('.new-body').val();
+
+
+  $.ajax({
+    type: "PUT",
+    url: "/api/v1/ideas/" + ideaId,
+    data: {
+      idea: {
+        title: newTitle,
+        body: newBody
+      }
+    },
+    success: function() {
+      var $title = $idea.find('.title');
+      var $body = $idea.find('.idea-body');
+      $title.text(newTitle).show();
+      $body.text(truncate(newBody)).show();
+      $idea.find('.edit-idea').show();
+      $idea.find('.new-body').remove();
+      $idea.find('.new-title').remove();
+      $idea.find('.update-idea').remove();
     }
   });
 };
