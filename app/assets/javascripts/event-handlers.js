@@ -25,10 +25,10 @@ var findIdeaById = function(id) {
   return $('#idea-' + id);
 };
 
-var addUpdateHandler = function(idea) {
-  idea.find('.update-idea').click(updateHandler);
-  idea.find('.new-title').focusout(updateHandler);
-  idea.find('.new-body').focusout(updateHandler);
+var addUpdateHandler = function($idea) {
+  $idea.find('.update-idea').click(updateHandler);
+  $idea.find('.new-title').focusout(updateHandler);
+  $idea.find('.new-body').focusout(updateHandler);
 };
 
 var deleteHandler = function() {
