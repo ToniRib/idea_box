@@ -173,7 +173,7 @@ var addUpdateHandler = function(idea) {
   idea.find('.update-idea').click(updateHandler);
   idea.find('.new-title').focusout(updateHandler);
   idea.find('.new-body').focusout(updateHandler);
-  // idea.find('.new-body').keypress(updateHandler);
+  idea.find('.new-body').keypress(updateHandler);
 };
 
 var updateHandler = function() {
@@ -192,7 +192,7 @@ var updateHandler = function() {
       }
     },
     success: function() {
-      if (!$(".new-title").is(":focus") && !$(".new-body").is(":focus")) {
+      if (inputsOutOfFocus()) {
         var $title = $idea.find('.title');
         var $body = $idea.find('.idea-body');
         $title.text(newTitle).show();
@@ -205,6 +205,10 @@ var updateHandler = function() {
       }
     }
   });
+};
+
+var inputsOutOfFocus = function() {
+  return !$(".new-title").is(":focus") && !$(".new-body").is(":focus");
 };
 
 var thumbsUpHandler = function() {
