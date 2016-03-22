@@ -63,6 +63,7 @@ var ideaString = function(idea) {
          "<i class='fa fa-thumbs-o-down'></i></p>" +
          "<p class='idea-body'>" + truncatedBody + "</p>" +
          "<button class='btn btn-danger delete-idea'>Delete</button>" +
+         "<button class='btn btn-primary edit-idea'>Edit</button>" +
          "</div>";
 };
 
