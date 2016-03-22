@@ -1,9 +1,9 @@
 // ----- FONTS -----
-@import url(https://fonts.googleapis.com/css?family=Roboto:400,100);
+@import url(https://fonts.googleapis.com/css?family=PT+Serif);
 
 // ----- MAIN STYLES -----
 body {
-  font-family: 'Roboto', sans-serif;
+  font-family: 'PT Serif', serif;
 }
 
 .container {
@@ -47,6 +47,7 @@ i {
 }
 
 .quality {
+  color: #01159f;
   margin-right: 10px;
 }
 
@@ -61,12 +62,26 @@ i {
   margin-bottom: 10px;
 }
 
+.search-column {
+  margin-bottom: 10px;
+}
+
 .save-btn,
 .edit-idea,
-.delete-idea {
+.delete-idea,
+.update-idea {
   margin-bottom: 10px;
 }
 
 .delete-idea {
   margin-right: 15px;
+}
+
+.btn {
+  font-size: 14px;
+  height: 25px;
+  letter-spacing: 0.1em;
+  padding: 0;
+  text-transform: lowercase;
+  width: 115px;
 }
