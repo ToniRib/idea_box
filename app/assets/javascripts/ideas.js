@@ -15,7 +15,7 @@ $(document).ready(function() {
   $('#clear-search').on('click', function() {
     $('#search').val('');
     showAllIdeas();
-  })
+  });
 });
 
 var filterIdeas = function(searchString) {
@@ -24,7 +24,7 @@ var filterIdeas = function(searchString) {
   for (var i = 1; i < $ideas.length + 1; i++) {
     $currentIdea = $('.idea:nth-child(' + i + ')');
     title = $currentIdea.find('.title').text();
-    body = $currentIdea.find('.idea-body').text();
+    body = $currentIdea.find('.hidden').text();
 
     if (contains(title, searchString) || contains(body, searchString)) {
       $currentIdea.show();
@@ -104,6 +104,7 @@ var ideaString = function(idea) {
          "<i class='fa fa-thumbs-o-up'></i>" +
          "<i class='fa fa-thumbs-o-down'></i></p>" +
          "<p class='idea-body'>" + truncatedBody + "</p>" +
+         "<p class='hidden'>" + idea.body + "</p>" +
          "<button class='btn btn-danger delete-idea'>Delete</button>" +
          "<button class='btn btn-primary edit-idea'>Edit</button>" +
          "</div>";
@@ -156,21 +157,16 @@ var editHandler = function() {
   var ideaId = $idea.attr('id').split('-')[1];
   var $title = $idea.find('.title');
   var $body = $idea.find('.idea-body');
+  var $fullBody = $idea.find('.hidden');
 
-  $.ajax({
-    type: 'GET',
-    url: '/api/v1/ideas/' + ideaId,
-    success: function(idea) {
-      $title.hide();
-      $body.hide();
-      $idea.find('.edit-idea').hide();
-      $idea.prepend("<textarea type='text' id='new-body' class='new-body'></textarea>");
-      $idea.find('textarea').val(idea.body);
-      $idea.prepend("<input class='new-title' id='new-title' type='text' value='" + $title.text() + "'></input>").focus();
-      $idea.append("<button class='btn btn-success update-idea'>Save Changes</button>");
-      addUpdateHandler($idea);
-    }
-  });
+  $title.hide();
+  $body.hide();
+  $idea.find('.edit-idea').hide();
+  $idea.prepend("<textarea type='text' id='new-body' class='new-body'></textarea>");
+  $idea.find('textarea').val($fullBody.text());
+  $idea.prepend("<input class='new-title' id='new-title' type='text' value='" + $title.text() + "'></input>").focus();
+  $idea.append("<button class='btn btn-success update-idea'>Save Changes</button>");
+  addUpdateHandler($idea);
 };
 
 var addUpdateHandler = function(idea) {
@@ -182,7 +178,6 @@ var updateHandler = function() {
   var ideaId = $idea.attr('id').split('-')[1];
   var newTitle = $idea.find('.new-title').val();
   var newBody = $idea.find('.new-body').val();
-
 
   $.ajax({
     type: "PUT",
@@ -199,6 +194,7 @@ var updateHandler = function() {
       $title.text(newTitle).show();
       $body.text(truncate(newBody)).show();
       $idea.find('.edit-idea').show();
+      $idea.find('.hidden').text(newBody);
       $idea.find('.new-body').remove();
       $idea.find('.new-title').remove();
       $idea.find('.update-idea').remove();
