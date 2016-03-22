@@ -105,19 +105,8 @@ var thumbsUpHandler = function() {
   var currentQuality = $quality.text();
   var newQuality = determineQuality(currentQuality, 1);
 
-  if (newQuality !== currentQuality) {
-    $.ajax({
-      type: "PUT",
-      url: "/api/v1/ideas/" + ideaId,
-      data: {
-        idea: {
-          quality: newQuality
-        }
-      },
-      success: function() {
-        $quality.text(newQuality);
-      }
-    });
+  if (qualityHasChanged(newQuality, currentQuality)) {
+    updateQuality($quality, ideaId, newQuality);
   }
 };
 
@@ -127,20 +116,26 @@ var thumbsDownHandler = function() {
   var currentQuality = $quality.text();
   var newQuality = determineQuality(currentQuality, -1);
 
-  if (newQuality !== currentQuality) {
-    $.ajax({
-      type: "PUT",
-      url: "/api/v1/ideas/" + ideaId,
-      data: {
-        idea: {
-          quality: newQuality
-        }
-      },
-      success: function() {
-        $quality.text(newQuality);
-      }
-    });
+  if (qualityHasChanged(newQuality, currentQuality)) {
+    updateQuality($quality, ideaId, newQuality);
   }
+};
+
+var updateQuality = function($quality, id, newQuality) {
+  $.ajax({
+    type: "PUT",
+    url: "/api/v1/ideas/" + id,
+    data: {
+      idea: {
+        quality: newQuality
+      }
+    },
+    success: function() { $quality.text(newQuality); }
+  });
+};
+
+var qualityHasChanged = function(newQuality, oldQuality) {
+  return newQuality !== oldQuality;
 };
 
 var determineQuality = function(level, direction) {
