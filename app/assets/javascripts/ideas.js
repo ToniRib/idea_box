@@ -43,7 +43,7 @@ var showAllIdeas = function() {
 };
 
 var contains = function(string, substring) {
-  return string.indexOf(substring) !== -1;
+  return string.toLowerCase().indexOf(substring.toLowerCase()) !== -1;
 };
 
 var getIdeas = function() {
