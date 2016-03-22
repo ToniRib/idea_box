@@ -5,6 +5,10 @@ class Api::V1::IdeasController < Api::V1::BaseController
     respond_with Idea.newest_to_oldest
   end
 
+  def show
+    respond_with Idea.find(params[:id])
+  end
+
   def create
     respond_with :api, :v1, Idea.create(idea_params)
   end

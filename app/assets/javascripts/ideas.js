@@ -39,6 +39,7 @@ var addHandlers = function(idea) {
   addDeleteClickHandler(idea);
   addThumbsUpHandler(idea);
   addThumbsDownHandler(idea);
+  addEditHandler(idea);
 };
 
 var addDeleteClickHandler = function(idea) {
@@ -51,6 +52,10 @@ var addThumbsUpHandler = function(idea) {
 
 var addThumbsDownHandler = function(idea) {
   $('#idea-' + idea.id).find('.fa-thumbs-o-down').click(thumbsDownHandler);
+};
+
+var addEditHandler = function(idea) {
+  $('#idea-' + idea.id).find('.edit-idea').click(editHandler);
 };
 
 var ideaString = function(idea) {
@@ -105,6 +110,28 @@ var deleteHandler = function() {
     url: "/api/v1/ideas/" + ideaId,
     success: function() {
       $('#idea-' + ideaId).remove();
+    }
+  });
+};
+
+var editHandler = function() {
+  var $idea = $(this).parent();
+  var ideaId = $idea.attr('id').split('-')[1];
+  var $title = $idea.find('.title');
+  var $body = $idea.find('.idea-body');
+
+  $.ajax({
+    type: 'GET',
+    url: '/api/v1/ideas/' + ideaId,
+    success: function(idea) {
+      var body = idea.body;
+      $title.hide();
+      $body.hide();
+      $idea.find('.edit-idea').hide();
+      $idea.prepend("<textarea type='text'></textarea>");
+      $idea.find('textarea').val(body);
+      $idea.prepend("<input type='text' value='" + $title.text() + "'></input>").focus();
+      $idea.append("<button class='btn btn-success update-btn'>Save Changes</button>");
     }
   });
 };
