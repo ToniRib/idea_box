@@ -2,12 +2,26 @@ $(document).ready(function() {
   getIdeas();
 
   $('#save-idea').on('click', function() {
-    var title = $('#title').val();
-    var body = $('#body').val();
-
-    saveIdea(title, body);
+    saveIdea($('#title').val(), $('#body').val());
   });
 });
+
+var saveIdea = function(title, body) {
+  $.ajax({
+    type: "POST",
+    url: "/api/v1/ideas",
+    data: {
+      idea: {
+        title: title,
+        body: body
+      }
+    },
+    success: function(idea) {
+      prependIdea(idea);
+      clearInputs();
+    }
+  });
+};
 
 var getIdeas = function() {
   $.ajax({
@@ -61,21 +75,4 @@ var truncate = function(text) {
 var clearInputs = function() {
   $('#title').val('');
   $('#body').val('');
-};
-
-var saveIdea = function(title, body) {
-  $.ajax({
-    type: "POST",
-    url: "/api/v1/ideas",
-    data: {
-      idea: {
-        title: title,
-        body: body
-      }
-    },
-    success: function(idea) {
-      prependIdea(idea);
-      clearInputs();
-    }
-  });
 };
