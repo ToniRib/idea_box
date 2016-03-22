@@ -6,19 +6,23 @@ var addHandlers = function(idea) {
 };
 
 var addDeleteClickHandler = function(idea) {
-  $('#idea-' + idea.id).find('.delete-idea').click(deleteHandler);
+  findIdeaById(idea.id).find('.delete-idea').click(deleteHandler);
 };
 
 var addThumbsUpHandler = function(idea) {
-  $('#idea-' + idea.id).find('.fa-thumbs-o-up').click(thumbsUpHandler);
+  findIdeaById(idea.id).find('.fa-thumbs-o-up').click(thumbsUpHandler);
 };
 
 var addThumbsDownHandler = function(idea) {
-  $('#idea-' + idea.id).find('.fa-thumbs-o-down').click(thumbsDownHandler);
+  findIdeaById(idea.id).find('.fa-thumbs-o-down').click(thumbsDownHandler);
 };
 
 var addEditHandler = function(idea) {
-  $('#idea-' + idea.id).find('.edit-idea').click(editHandler);
+  findIdeaById(idea.id).find('.edit-idea').click(editHandler);
+};
+
+var findIdeaById = function(id) {
+  return $('#idea-' + id);
 };
 
 var addUpdateHandler = function(idea) {
