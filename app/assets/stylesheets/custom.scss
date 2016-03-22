@@ -29,7 +29,7 @@ body {
 
 input,
 textarea {
-  width: 700px;
+  width: 675px;
   margin-bottom: 5px;
 }
 
@@ -44,4 +44,19 @@ i {
 .fa {
   cursor: pointer;
   cursor: hand;
+}
+
+.new-idea-row {
+  border-bottom: 2px solid black;
+  margin-bottom: 10px;
+}
+
+.save-btn,
+.edit-idea,
+.delete-idea {
+  margin-bottom: 10px;
+}
+
+.delete-idea {
+  margin-right: 15px;
 }
