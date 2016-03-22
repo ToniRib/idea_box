@@ -7,7 +7,7 @@ RSpec.describe "User filters ideas", type: :feature do
 
     visit root_path
 
-    fill_in "Search", with: "kit"
+    fill_in "search", with: "kit"
 
     expect(page).to have_content("kittens")
     expect(page).to_not have_content("bunnies")
@@ -19,7 +19,7 @@ RSpec.describe "User filters ideas", type: :feature do
 
     visit root_path
 
-    fill_in "Search", with: "kit"
+    fill_in "search", with: "kit"
 
     expect(page).to have_content("kittens")
     expect(page).to_not have_content("bunnies")
@@ -32,7 +32,7 @@ RSpec.describe "User filters ideas", type: :feature do
 
     visit root_path
 
-    fill_in "Search", with: "kitten"
+    fill_in "search", with: "kitten"
 
     expect(page).to have_content("kittens")
     expect(page).to_not have_content("bunnies")
@@ -50,18 +50,31 @@ RSpec.describe "User filters ideas", type: :feature do
 
     visit root_path
 
-    fill_in "Search", with: "bunn"
+    fill_in "search", with: "bunn"
 
     expect(page).to have_content("bunnies")
     expect(page).to have_content("bunny")
 
-    fill_in "Search", with: "bunny"
+    fill_in "search", with: "bunny"
 
     expect(page).to_not have_content("bunnies")
     expect(page).to have_content("bunny")
   end
 
-  xscenario "results are reset with clear button", js: true do
+  scenario "results are reset with clear button", js: true do
+    create(:idea, body: "bunnies")
+    create(:idea, body: "kittens")
 
+    visit root_path
+
+    fill_in "search", with: "kit"
+
+    expect(page).to have_content("kittens")
+    expect(page).to_not have_content("bunnies")
+
+    click_on "Clear"
+
+    expect(page).to have_content("kittens")
+    expect(page).to have_content("bunnies")
   end
 end

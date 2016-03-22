@@ -11,6 +11,11 @@ $(document).ready(function() {
   $('#search').on('keyup', function() {
     filterIdeas($(this).val());
   });
+
+  $('#clear-search').on('click', function() {
+    $('#search').val('');
+    showAllIdeas();
+  })
 });
 
 var filterIdeas = function(searchString) {
@@ -26,6 +31,14 @@ var filterIdeas = function(searchString) {
     } else {
       $currentIdea.hide();
     }
+  }
+};
+
+var showAllIdeas = function() {
+  $ideas = $('.idea');
+
+  for (var i = 1; i < $ideas.length + 1; i++) {
+    $('.idea:nth-child(' + i + ')').show();
   }
 };
 
