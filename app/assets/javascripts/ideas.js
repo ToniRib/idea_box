@@ -7,7 +7,31 @@ $(document).ready(function() {
 
     saveIdea(title, body);
   });
+
+  $('#search').on('keyup', function() {
+    filterIdeas($(this).val());
+  });
 });
+
+var filterIdeas = function(searchString) {
+  $ideas = $('.idea');
+
+  for (var i = 1; i < $ideas.length + 1; i++) {
+    $currentIdea = $('.idea:nth-child(' + i + ')');
+    title = $currentIdea.find('.title').text();
+    body = $currentIdea.find('.idea-body').text();
+
+    if (contains(title, searchString) || contains(body, searchString)) {
+      $currentIdea.show();
+    } else {
+      $currentIdea.hide();
+    }
+  }
+};
+
+var contains = function(string, substring) {
+  return string.indexOf(substring) !== -1;
+};
 
 var getIdeas = function() {
   $.ajax({
