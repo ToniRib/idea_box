@@ -84,7 +84,7 @@ var updateHandler = function() {
       }
     },
     success: function() {
-      if (inputsOutOfFocus()) { removeInputsAndShowFields($idea, newTitle, newBody); }
+      if (inputsAreOutOfFocus()) { removeInputsAndShowFields($idea, newTitle, newBody); }
     }
   });
 };
@@ -99,7 +99,7 @@ var removeInputsAndShowFields = function($idea, titleText, bodyText) {
   $idea.find('.update-idea').remove();
 };
 
-var inputsOutOfFocus = function() {
+var inputsAreOutOfFocus = function() {
   return !$(".new-title").is(":focus") && !$(".new-body").is(":focus");
 };
 
