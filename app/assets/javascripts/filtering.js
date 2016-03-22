@@ -1,17 +1,17 @@
 var filterIdeas = function(searchString) {
   $ideas = $('.idea');
 
-  for (var i = 1; i < $ideas.length + 1; i++) {
-    $currentIdea = $('.idea:nth-child(' + i + ')');
-    title = $currentIdea.find('.title').text();
-    body = $currentIdea.find('.hidden').text();
+  $.each($ideas, function(index, idea) {
+    $currentIdea = $(idea);
+    title = $currentIdea.children('.title').text();
+    body = $currentIdea.children('.hidden').text();
 
     if (titleOrBodyContainsSearchString(title, body, searchString)) {
       $currentIdea.show();
     } else {
       $currentIdea.hide();
     }
-  }
+  });
 };
 
 var contains = function(string, substring) {
