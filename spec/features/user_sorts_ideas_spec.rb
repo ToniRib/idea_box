@@ -22,7 +22,7 @@ RSpec.describe "User sorts ideas", type: :feature do
     end
   end
 
-  xscenario "by ascending quality", js: true do
+  scenario "by ascending quality", js: true do
     idea1 = create(:idea, title: 'idea1', quality: 'plausible')
     idea2 = create(:idea, title: 'idea2', quality: 'swill')
     idea3 = create(:idea, title: 'idea3', quality: 'genius')

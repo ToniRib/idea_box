@@ -2,15 +2,21 @@ $(document).ready(function() {
   var numberOfSorts = 0;
 
   $('#sort').on('click', function() {
-    sortIdeasByQuality(numberOfSorts);
-  })
+    numberOfSorts = sortIdeasByQuality(numberOfSorts);
+  });
 });
 
 var sortIdeasByQuality = function(n) {
   ideas = getIdeaObjects();
-  console.log(ideas);
-  //  if n is 0 or even, sort descending
-  //  otherwise wort ascending
+  $('.idea').remove();
+  ideas = isEven(n) ? sortDescending(ideas) : sortAscending(ideas);
+  addIdeasToPage(ideas);
+  n++;
+  return n;
+};
+
+var isEven = function(num) {
+  return num % 2 === 0;
 };
 
 var getIdeaObjects = function() {
@@ -21,14 +27,38 @@ var getIdeaObjects = function() {
     $currentIdea = $(idea);
 
     ideaObjects.push({
-      title: $currentIdea.children('.title').text(),
-      fullBody: $currentIdea.children('.hidden').text(),
-      body: $currentIdea.children('.idea-body').text(),
-      quality: $currentIdea.children('.quality').text(),
+      title: $currentIdea.find('.title').text(),
+      fullBody: $currentIdea.find('.hidden').text(),
+      body: $currentIdea.find('.idea-body').text(),
+      quality: $currentIdea.find('.quality').text(),
       visible: $currentIdea.is(':visible'),
       id: $currentIdea.attr('id')
-    })
+    });
   });
 
   return ideaObjects;
+};
+
+var sortDescending = function(ideas) {
+  return ideas.sort(compareQuality);
+};
+
+var sortAscending = function(ideas) {
+  return ideas.sort(compareQuality).reverse();
+};
+
+var compareQuality = function(a, b) {
+  if (qualityLevels[a.quality] > qualityLevels[b.quality]) {
+    return -1;
+  } else if (qualityLevels[a.quality] < qualityLevels[b.quality]) {
+    return 1;
+  } else {
+    return 0;
+  }
+};
+
+var qualityLevels = {
+  'swill': 0,
+  'plausible': 1,
+  'genius': 3
 };
