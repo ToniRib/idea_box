@@ -83,7 +83,7 @@ var updateHandler = function() {
         body: newBody
       }
     },
-    success: function() {
+    success: function(a, b, c) {
       if (inputsAreOutOfFocus()) { removeInputsAndShowFields($idea, newTitle, newBody); }
     }
   });

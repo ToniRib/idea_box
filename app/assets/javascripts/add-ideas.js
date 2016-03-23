@@ -19,6 +19,9 @@ var saveIdea = function(title, body) {
     success: function(idea) {
       prependIdea(idea);
       clearInputs();
+    },
+    error: function() {
+      alert('Idea could not be saved!');
     }
   });
 };

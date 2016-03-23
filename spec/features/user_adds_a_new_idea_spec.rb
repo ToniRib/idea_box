@@ -54,4 +54,28 @@ RSpec.describe "User adds a new idea", type: :feature do
       expect(page).to have_content("")
     end
   end
+
+  scenario "that is missing a title", js: true do
+    visit root_path
+
+    fill_in "Body", with: "New Body"
+    click_on "Save"
+
+    alert = page.driver.browser.switch_to.alert.text
+    page.driver.browser.switch_to.alert.accept
+
+    expect(alert).to eq("Idea could not be saved!")
+  end
+
+  scenario "that is missing a body", js: true do
+    visit root_path
+
+    fill_in "Body", with: "New Body"
+    click_on "Save"
+
+    alert = page.driver.browser.switch_to.alert.text
+    page.driver.browser.switch_to.alert.accept
+
+    expect(alert).to eq("Idea could not be saved!")
+  end
 end
