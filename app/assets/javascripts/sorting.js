@@ -32,9 +32,11 @@ var getIdeaObjects = function() {
       body: $currentIdea.find('.idea-body').text(),
       quality: $currentIdea.find('.quality').text(),
       visible: $currentIdea.is(':visible'),
-      id: $currentIdea.attr('id')
+      id: $currentIdea.attr('id').split('-')[1]
     });
   });
+
+  console.log(ideaObjects);
 
   return ideaObjects;
 };
