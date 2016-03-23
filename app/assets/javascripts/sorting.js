@@ -8,9 +8,12 @@ $(document).ready(function() {
 
 var sortIdeasByQuality = function(n) {
   ideas = getIdeaObjects();
+
   $('.idea').remove();
   ideas = isEven(n) ? sortDescending(ideas) : sortAscending(ideas);
+
   addIdeasToPage(ideas);
+
   n++;
   return n;
 };
@@ -35,8 +38,6 @@ var getIdeaObjects = function() {
       id: $currentIdea.attr('id').split('-')[1]
     });
   });
-
-  console.log(ideaObjects);
 
   return ideaObjects;
 };

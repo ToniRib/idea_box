@@ -24,6 +24,8 @@ The application is fairly simple and straightforward to use.
 
 New ideas have a default level of 'swill' but can be changed to 'plausible' or 'genius' by hitting the thumbs up and thumbs down icons next to the idea.
 
+Additionally, if an idea's body has more than 100 characters, the body will be truncated to the closest word that is less than the 100 character limit and an ellipses will be added to the end.
+
 ### Edit an idea
 
 1. Click on the edit button
